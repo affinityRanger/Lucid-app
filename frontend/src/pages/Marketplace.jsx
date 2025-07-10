@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Footer from "../sections/Footer";
 import axios from "axios"; // ⭐ ADDED AXIOS IMPORT ⭐
 
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 
 export default function Marketplace() {
   const location = useLocation();

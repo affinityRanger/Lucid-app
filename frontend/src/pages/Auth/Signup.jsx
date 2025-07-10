@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom'; // If you use react-router
 
+const API_BASE_URL = 'https://backendlucid.onrender.com'
+
 function Signup() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ function Signup() {
         setError('');
         setSuccess('');
         try {
-            const response = await axios.post('http://localhost:5000/api/users/signup', {
+            const response = await axios.post(`${API_BASE_URL}/api/users/signup`, {
                 name,
                 email,
                 password,

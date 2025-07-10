@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'; // If you need auth for fetching specific listings
 
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 
 function ListingDetail() {
   const { id } = useParams(); // Get the listing ID from the URL

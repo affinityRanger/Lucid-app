@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 
 export default function Login() {
   const [email, setEmail] = useState("");

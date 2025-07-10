@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 
 export default function Join() {
   const [isLogin, setIsLogin] = useState(true);

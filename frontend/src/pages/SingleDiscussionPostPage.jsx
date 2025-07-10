@@ -5,7 +5,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import CreateDiscussionForm from '../components/CreateDiscussionForm';
 
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 
 export default function SingleDiscussionPostPage() {
   const { id } = useParams();

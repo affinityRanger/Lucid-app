@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { format } from 'date-fns';
 
 // const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const API_BASE_URL = 'https://backendlucid.onrender.com/'
+const API_BASE_URL = 'https://backendlucid.onrender.com'
 export default function DiscussionsPage() {
   const [discussions, setDiscussions] = useState([]);
   const [loading, setLoading] = useState(true);
