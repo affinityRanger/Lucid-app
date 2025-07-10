@@ -6,7 +6,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { MoreHorizontal, Pencil, Trash, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+// const API_BASE_URL ='http://localhost:5000'
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
 
 export default function DiscussionsPage() {
   const [discussions, setDiscussions] = useState([]);

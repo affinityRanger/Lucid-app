@@ -5,6 +5,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import CreateDiscussionForm from '../components/CreateDiscussionForm';
 
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
+
 export default function SingleDiscussionPostPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ export default function SingleDiscussionPostPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`http://localhost:5000/api/community/discussions/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/community/discussions/${id}`);
       setPost(response.data);
     } catch (err) {
       console.error('Error fetching discussion post:', err.response?.data || err.message);
@@ -76,7 +78,7 @@ export default function SingleDiscussionPostPage() {
             Authorization: `Bearer ${user.token}`,
           },
         };
-        await axios.delete(`http://localhost:5000/api/community/discussions/${id}`, config);
+        await axios.delete(`${API_BASE_URL}/api/community/discussions/${id}`, config);
         alert('Discussion post deleted successfully!');
         navigate('/community/discussions'); // Redirect to discussions page after successful delete
       } catch (err) {

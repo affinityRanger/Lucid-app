@@ -6,6 +6,8 @@ import { useAuth } from "../contexts/AuthContext";
 import Footer from "../sections/Footer";
 import axios from "axios"; // ⭐ ADDED AXIOS IMPORT ⭐
 
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
+
 export default function Marketplace() {
   const location = useLocation();
   const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth(); // Renamed isLoading to isAuthLoading to avoid conflict
@@ -69,7 +71,7 @@ export default function Marketplace() {
           sortBy: sortBy,
         },
       };
-      const res = await axios.get("http://localhost:5000/api/listings", config);
+      const res = await axios.get(`${API_BASE_URL}/api/listings`, config);
 
       const processedListings = res.data.map((item) => ({
         ...item,
@@ -134,7 +136,7 @@ export default function Marketplace() {
       if (showDetailModal && selectedListing && selectedListing.seller && selectedListing.seller._id) {
         setIsOwnerContactLoading(true);
         try {
-          const response = await fetch(`http://localhost:5000/api/users/${selectedListing.seller._id}`, {
+          const response = await fetch(`${API_BASE_URL}/api/users/${selectedListing.seller._id}`, {
             headers: {
               'Authorization': `Bearer ${user.token}`,
             },
@@ -202,7 +204,7 @@ export default function Marketplace() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/listings", {
+      const res = await fetch(`${API_BASE_URL}/api/listings`, {
         method: "POST",
         body: data,
         headers: {
@@ -255,7 +257,7 @@ export default function Marketplace() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/listings/${listingId}`,
+        `${API_BASE_URL}/api/listings/${listingId}`,
         {
           method: "DELETE",
           headers: {
@@ -329,7 +331,7 @@ export default function Marketplace() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/listings/${selectedListing._id}/message`,
+        `${API_BASE_URL}/api/listings/${selectedListing._id}/message`,
         {
           method: "POST",
           headers: {

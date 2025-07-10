@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
+
 export default function Join() {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
@@ -39,8 +41,8 @@ export default function Join() {
 
       // ⭐ CRITICAL FIX: Changed endpoints to /api/auth/ ⭐
       const endpoint = isLogin
-        ? "http://localhost:5000/api/auth/login"
-        : "http://localhost:5000/api/auth/register"; // Changed from /signup to /register
+        ? `${API_BASE_URL}/api/auth/login`
+        : `${API_BASE_URL}/api/auth/register`; // Changed from /signup to /register
 
       // ⭐ UPDATED: Added phone to signup payload ⭐
       const payload = isLogin

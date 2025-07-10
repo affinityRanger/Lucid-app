@@ -8,8 +8,8 @@ import { MoreHorizontal, Pencil, Trash, Loader2, CheckCircle } from 'lucide-reac
 import { motion, AnimatePresence } from 'framer-motion';
 import { format } from 'date-fns';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
+// const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
 export default function DiscussionsPage() {
   const [discussions, setDiscussions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,6 +27,7 @@ export default function DiscussionsPage() {
       setLoading(true);
       setError(null);
       const response = await axios.get(`${API_BASE_URL}/api/community/discussions?_=${Date.now()}`);
+      console.log("Fetched discussions from backend:", response.data);
       setDiscussions(response.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load discussions.');
@@ -52,6 +53,7 @@ export default function DiscussionsPage() {
   }, [openMenuId]);
 
   const handleDeletePost = async (postId) => {
+    console.log("Attempting to delete post:", postId);
     if (!window.confirm('Are you sure you want to delete this post?')) return;
     if (!user || !user.token) {
       setError('You must be logged in to delete posts.');
@@ -65,7 +67,9 @@ export default function DiscussionsPage() {
       });
       await fetchDiscussions();
       setSuccess('Post deleted successfully.');
+      console.log("Post deleted:", postId);
     } catch (err) {
+      console.error("Error deleting post:", err);
       setError(err.response?.data?.message || 'Failed to delete post.');
     } finally {
       setDeletingId(null);
@@ -73,13 +77,30 @@ export default function DiscussionsPage() {
   };
 
   const handlePostCreated = async () => {
+    console.log("Post created or updated, refreshing discussions...");
     await fetchDiscussions();
-    setSuccess('Post saved successfully.');
+    if (editingPost) {
+      setSuccess('Post updated successfully.');
+    } else {
+      setSuccess('Post created successfully.');
+    }
     setShowOverlay(false);
     setEditingPost(null);
   };
 
+  // Auto-dismiss success message after 3 seconds
+  useEffect(() => {
+    if (success) {
+      const timeout = setTimeout(() => setSuccess(null), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [success]);
+
   const canCreatePost = isAuthenticated && !isAuthLoading;
+
+  useEffect(() => {
+    console.log("Discussions state before render:", discussions);
+  }, [discussions]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-8">
@@ -109,6 +130,7 @@ export default function DiscussionsPage() {
           <CreateDiscussionOverlay
             initialData={editingPost}
             onClose={() => {
+              console.log("Overlay closed.");
               setShowOverlay(false);
               setEditingPost(null);
             }}
@@ -193,6 +215,7 @@ export default function DiscussionsPage() {
                         >
                           <button
                             onClick={() => {
+                              console.log("Editing post:", post);
                               setEditingPost(post);
                               setShowOverlay(true);
                               setOpenMenuId(null);

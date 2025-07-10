@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'; // If you need auth for fetching specific listings
 
+const API_BASE_URL = 'https://backendlucid.onrender.com/'
+
 function ListingDetail() {
   const { id } = useParams(); // Get the listing ID from the URL
   const { user } = useAuth(); // Assuming you might need user token for fetching
@@ -19,7 +21,7 @@ function ListingDetail() {
         // if (user && user.token) {
         //   headers['Authorization'] = `Bearer ${user.token}`;
         // }
-        const response = await fetch(`http://localhost:5000/api/listings/${id}`, { headers });
+        const response = await fetch(`${API_BASE_URL}/api/listings/${id}`, { headers });
         if (!response.ok) {
           throw new Error(`Failed to fetch listing: ${response.statusText}`);
         }
